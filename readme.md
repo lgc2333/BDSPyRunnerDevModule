@@ -1,6 +1,6 @@
 # BDSpyrunner辅助开发模块
 
-**本模块已适配pyr1.6.3**
+**本模块已适配pyr1.7.0**
 
 此模块适用于 [twoone3](https://github.com/twoone-3) 开发的BDSpyrunner
 
@@ -97,3 +97,5 @@ Telegram: @lgc2333
 2021.8.5b3 修正了disconnect的参数错误
 
 2021.8.6 适配pyr1.6.3
+
+2021.8.19 尝试适配pyr1.7.0
