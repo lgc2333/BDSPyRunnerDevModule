@@ -92,12 +92,12 @@ class Entity(object):
 
     @property
     def isstand(self) -> bool:
-        """实体是否站立在方块上"""
+        """实体是否着地"""
         ...
 
     @property
     def typeid(self) -> int:
-        """实体类型"""
+        """实体类型id"""
         ...
 
     @property
@@ -136,12 +136,12 @@ class Entity(object):
 
     @property
     def deviceos(self) -> int:
-        """设备类型（可检测玩家是否由安卓登录）"""
+        """玩家设备操作系统（1代表Android，7代表Win10）"""
         ...
 
     @property
     def deviceid(self) -> str:
-        """设备id（uuid字符串，可检测玩家是否由win10登录）"""
+        """玩家设备id（uuid字符串，可检测玩家是否由win10登录）"""
         ...
 
     @property
@@ -348,29 +348,6 @@ class Entity(object):
         """
         ...
 
-    def setSize(self, f1: float, f2: float):
-        """
-        设置玩家大小
-
-        ----
-
-        [常年失踪]hào好吃の饼干 19:56:11
-
-        setsize两个float代表啥 没看出来@twoone3
-
-        twoone3 19:56:49
-
-        不知道
-
-        twoone3 19:56:50
-
-        没用过
-
-        :param f1: 未知
-        :param f2: 未知
-        """
-        ...
-
     def addTag(self, tag: str):
         """
         增加标签
@@ -395,9 +372,34 @@ class Entity(object):
         """
         ...
 
+    def crash(self):
+        """
+        让玩家崩端
+        """
+        ...
+
+    def kill(self):
+        """
+        杀死实体
+        """
+        ...
+
+
+def minVersionRequire(v1: int, v2: int, v3: int):
+    """
+    检查插件版本是否符合pyr要求，如不符合则抛异常
+
+    :param v1: 插件适配pyr版本号第一位
+    :param v2: 插件适配pyr版本号第二位
+    :param v3: 插件适配pyr版本号第三位
+    """
+    ...
+
 
 def getVersion() -> int:
     """
+    !!! 被摒弃的函数，使用minVersionRequire来代替 !!!
+
     返回一个当前加载平台的版本号
 
     :return: 版本代号
@@ -439,12 +441,13 @@ def setListener(event: str, function: Callable[[Any], Optional[bool]]):
     ...
 
 
-def setCommandDescription(command: str, description: str):
+def setCommandDescription(command: str, description: str, callback: Callable[[Entity], None] = None):
     """
     添加指令说明
 
     :param command: 设置说明的指令
     :param description: 指令说明
+    :param callback: 回调函数，原型：callback(player:mc.Entity) -> None
     """
     ...
 
@@ -485,7 +488,7 @@ def setDamage(damage: int):
 
 def setServerMotd(motd: str):
     """
-    设置服务器motd(显示在服务器名称下方)
+    设置服务器外显名称(显示在服务器名称下方)
 
     :param motd: motd内容
     """
@@ -511,7 +514,7 @@ def setBlock(block: str, x: int, y: int, z: int, dimension_id: int):
     """
     设置指定位置的方块
 
-    :param block: 方块名称
+    :param block: 方块名称，必须使用驼峰式
     :param x: x坐标
     :param y: y坐标
     :param z: z坐标
@@ -549,5 +552,21 @@ def setStructure(struct: str, x: int, y: int, z: int, dimension_id: int):
     :param y: Y轴坐标
     :param z: Z轴坐标
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
+    """
+    ...
+
+
+def explode(x: float, y: float, z: float, did: int, power: float, destroy: bool, range: float, fire: bool):
+    """
+    产生爆炸
+
+    :param x: 爆炸源x坐标
+    :param y: 爆炸源y坐标
+    :param z: 爆炸源z坐标
+    :param did: 爆炸源维度id
+    :param power: 爆炸强度
+    :param destroy: 是否摧毁方块
+    :param range: 爆炸范围
+    :param fire: 是否生成火焰
     """
     ...
