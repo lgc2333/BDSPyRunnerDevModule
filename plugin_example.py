@@ -27,38 +27,19 @@ def listener(event: str):
     return function
 
 
-@listener('后台输入')
+@listener('onConsoleInput')  # 后台输入
 def onConsoleInput(data):
     print(f'指令数据:{data}')
     # return False # 拦截该事件
 
 
-@listener('后台输出')
+@listener('onConsoleOutput')  # 后台输出
 def onConsoleOutput(data):
     print(f'输出信息:{data}')
     # return False # 拦截该事件
 
 
-@listener('加入游戏')
-def onPlayerJoin(data):
-    print(f'玩家Entity对象:{data}')
-    # 该事件不可拦截
-
-
-@listener('离开游戏')
-def onPlayerLeft(data):
-    print(f'玩家Entity对象:{data}')
-    # 该事件不可拦截
-
-
-@listener('玩家攻击')
-def onPlayerAttack(data):
-    print(f'被攻击实体Entity对象:{data["actor"]}')
-    print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
-
-
-@listener('选择表单')
+@listener('onSelectForm')  # 选择表单
 def onSelectForm(data):
     print(f'表单ID:{data["formid"]}')
     print(f'表单回传的选择项信息:{data["selected"]}')
@@ -66,7 +47,7 @@ def onSelectForm(data):
     # return False # 拦截该事件
 
 
-@listener('使用物品')
+@listener('onUseItem')  # 使用物品
 def onUseItem(data):
     # 注：Win10客户端使用物品事件会在单次点击内触发多次
     print(f'操作方块所在位置:{data["position"]}')
@@ -77,7 +58,7 @@ def onUseItem(data):
     # return False # 拦截该事件
 
 
-@listener('放置方块')
+@listener('onPlaceBlock')  # 放置方块
 def onPlaceBlock(data):
     print(f'操作方块所在位置:{data["position"]}')
     print(f'方块ID:{data["blockid"]}')
@@ -86,7 +67,7 @@ def onPlaceBlock(data):
     # return False # 拦截该事件
 
 
-@listener('破坏方块')
+@listener('onDestroyBlock')  # 破坏方块
 def onDestroyBlock(data):
     print(f'操作方块所在位置:{data["position"]}')
     print(f'方块ID:{data["blockid"]}')
@@ -95,35 +76,35 @@ def onDestroyBlock(data):
     # return False # 拦截该事件
 
 
-@listener('打开箱子')
+@listener('onOpenChest')  # 打开箱子
 def onOpenChest(data):
     print(f'操作方块所在位置:{data["position"]}')
     print(f'玩家Entity对象:{data["player"]}')
     # return False # 拦截该事件
 
 
-@listener('关闭箱子')
-def onCloseChest(data):
-    print(f'操作方块所在位置:{data["position"]}')
-    print(f'玩家Entity对象:{data["player"]}')
-    # 该事件不可拦截
-
-
-@listener('打开木桶')
+@listener('onOpenBarrel')  # 打开木桶
 def onOpenBarrel(data):
     print(f'操作方块所在位置:{data["position"]}')
     print(f'玩家Entity对象:{data["player"]}')
     # 该事件不可拦截
 
 
-@listener('关闭木桶')
+@listener('onCloseChest')  # 关闭箱子
+def onCloseChest(data):
+    print(f'操作方块所在位置:{data["position"]}')
+    print(f'玩家Entity对象:{data["player"]}')
+    # 该事件不可拦截
+
+
+@listener('onCloseBarrel')  # 关闭木桶
 def onCloseBarrel(data):
     print(f'操作方块所在位置:{data["position"]}')
     print(f'玩家Entity对象:{data["player"]}')
     # 该事件不可拦截
 
 
-@listener('放入取出')
+@listener('onContainerChange')  # 放入取出
 def onContainerChange(data):
     print(f'物品ID:{data["itemid"]}')
     print(f'物品数量:{data["itemcount"]}')
@@ -137,13 +118,13 @@ def onContainerChange(data):
     # 该事件不可拦截
 
 
-@listener('切换维度')
+@listener('onChangeDimension')  # 切换维度
 def onChangeDimension(data):
     print(f'玩家Entity对象:{data["player"]}')
     # return False # 拦截该事件
 
 
-@listener('生物死亡')
+@listener('onMobDie')  # 生物死亡
 def onMobDie(data):
     print(f'伤害具体原因ID:{data["dmcase"]}')
     print(f'死亡实体Entity对象:{data["actor1"]}')
@@ -151,7 +132,7 @@ def onMobDie(data):
     # 该事件不可拦截
 
 
-@listener('生物受伤')
+@listener('onMobHurt')  # 生物受伤
 def onMobHurt(data):
     # 注：此监听存在相关组件setDamage用于设置伤害值
     print(f'伤害具体原因ID:{data["dmcase"]}')
@@ -161,13 +142,13 @@ def onMobHurt(data):
     # return False # 拦截该事件
 
 
-@listener('玩家重生')
+@listener('onRespawn')  # 玩家重生
 def onRespawn(data):
     print(f'玩家Entity对象:{data}')
     # 该事件不可拦截
 
 
-@listener('聊天消息')
+@listener('onChat')  # 聊天消息
 def onChat(data):
     print(f'发送者名字:{data["sender"]}')
     print(f'接收者名字:{data["target"]}')
@@ -176,14 +157,14 @@ def onChat(data):
     # 该事件不可拦截
 
 
-@listener('输入文本')
+@listener('onInputText')  # 输入文本
 def onInputText(data):
     print(f'输入的文本:{data["msg"]}')
     print(f'玩家Entity对象:{data["player"]}')
     # return False # 拦截该事件
 
 
-@listener('更新命令方块')
+@listener('onCommandBlockUpdate')  # 更新命令方块
 def onCommandBlockUpdate(data):
     print(f'玩家Entity对象:{data["player"]}')
     print(f'将被更新的新指令:{data["cmd"]}')
@@ -197,14 +178,14 @@ def onCommandBlockUpdate(data):
     # return False # 拦截该事件
 
 
-@listener('输入指令')
+@listener('onInputCommand')  # 输入指令
 def onInputCommand(data):
     print(f'玩家输入的指令:{data["cmd"]}')
     print(f'玩家Entity对象:{data["player"]}')
     # return False # 拦截该事件
 
 
-@listener('命令方块执行')
+@listener('onCommandBlockPerform')  # 命令方块执行
 def onCommandBlockPerform(data):
     print(f'将被执行的指令:{data["cmd"]}')
     print(f'命令方块名称:{data["rawname"]}')
@@ -214,7 +195,26 @@ def onCommandBlockPerform(data):
     # return False # 拦截该事件
 
 
-@listener('世界爆炸')
+@listener('onPlayerJoin')  # 加入游戏
+def onPlayerJoin(data):
+    print(f'玩家Entity对象:{data}')
+    # 该事件不可拦截
+
+
+@listener('onPlayerLeft')  # 离开游戏
+def onPlayerLeft(data):
+    print(f'玩家Entity对象:{data}')
+    # 该事件不可拦截
+
+
+@listener('onPlayerAttack')  # 玩家攻击
+def onPlayerAttack(data):
+    print(f'被攻击实体Entity对象:{data["actor"]}')
+    print(f'玩家Entity对象:{data["player"]}')
+    # return False # 拦截该事件
+
+
+@listener('onLevelExplode')  # 世界爆炸
 def onLevelExplode(data):
     print(f'爆炸者实体Entity对象:{data["actor"]}')
     print(f'爆炸点所在位置:{data["position"]}')
@@ -223,7 +223,7 @@ def onLevelExplode(data):
     # return False # 拦截该事件
 
 
-@listener('玩家穿戴')
+@listener('onSetArmor')  # 玩家穿戴
 def onSetArmor(data):
     print(f'玩家Entity对象:{data["player"]}')
     print(f'物品ID:{data["itemid"]}')
@@ -234,7 +234,7 @@ def onSetArmor(data):
     # 该事件不可拦截
 
 
-@listener('耕地破坏')
+@listener('onFallBlockTransform')  # 耕地破坏
 def onFallBlockTransform(data):
     print(f'玩家Entity对象:{data["player"]}')
     print(f'方块所在位置:{data["position"]}')
@@ -242,7 +242,7 @@ def onFallBlockTransform(data):
     # return False # 拦截该事件
 
 
-@listener('使用重生锚')
+@listener('onUseRespawnAnchorBlock')  # 使用重生锚
 def onUseRespawnAnchorBlock(data):
     print(f'玩家Entity对象:{data["player"]}')
     print(f'方块所在位置:{data["position"]}')
@@ -250,7 +250,7 @@ def onUseRespawnAnchorBlock(data):
     # return False # 拦截该事件
 
 
-@listener('计分板改变')
+@listener('onScoreChanged')  # 计分板改变
 def onScoreChanged(data):
     print(f'计分板ID:{data["scoreboardid"]}')
     print(f'玩家分数:{data["playersnum"]}')
@@ -259,13 +259,13 @@ def onScoreChanged(data):
     # 该事件不可拦截
 
 
-@listener('玩家移动')
+@listener('onMove')  # 玩家移动
 def onMove(data):
     print(f'玩家Entity对象:{data}')
     # 该事件不可拦截
 
 
-@listener('活塞推动')
+@listener('onPistonPush')  # 活塞推动
 def onPistonPush(data):
     print(f'方块名字:{data["blockname"]}')
     print(f'方块ID:{data["blockid"]}')
@@ -279,3 +279,82 @@ def onPistonPush(data):
 def onEndermanRandomTeleport(data):
     print(f'末影人Entity对象:{data}')
     # return False # 拦截该事件
+
+
+@listener('onServerStarted')  # 服务器启动
+def onServerStarted():
+    # 无参数
+    pass  # 事件不可拦截
+
+
+@listener('onDropItem')  # 物品扔出
+def onDropItem(data):
+    print(f'扔物品玩家Entity对象:{data["player"]}')
+    print(f'物品id:{data["itemid"]}')
+    print(f'物品数量:{data["itemcount"]}')
+    print(f'物品名称:{data["itemname"]}')
+    print(f'物品特殊值:{data["itemaux"]}')
+    # return False # 拦截该事件
+
+
+@listener('onTakeItem')  # 拾取物品
+def onTakeItem(data):
+    print(f'拾取玩家Entity对象:{data["player"]}')
+    print(f'拾取物品Entity对象:{data["actor"]}')
+    # return False # 拦截该事件
+
+
+@listener('onRide')  # 乘坐坐骑
+def onRide(data):
+    print(f'乘坐玩家Entity对象:{data["actor1"]}')
+    print(f'被乘坐生物Entity对象:{data["actor2"]}')
+    # return False # 拦截该事件
+
+
+@listener('onUseFrameBlock')  # 使用物品展示框
+def onUseFrameBlock(data):
+    print(f'玩家Entity对象:{data["player"]}')
+    print(f'方块坐标:{data["blockpos"]}')
+    print(f'维度id:{data["dimensionid"]}')
+    # return False # 拦截该事件
+
+
+@listener('onJump')  # 玩家跳跃
+def onJump(data):
+    print(f'玩家Entity对象:{data}')
+    # 该事件不可拦截
+
+
+@listener('onSneak')  # 玩家潜行
+def onSneak(data):
+    print(f'玩家Entity对象:{data}')
+    # 该事件不可拦截
+
+
+@listener('onBlockInteracted')  # 方块交互
+def onBlockInteracted(data):
+    print(f'玩家Entity对象:{data["player"]}')
+    print(f'方块坐标:{data["blockpos"]}')
+    print(f'方块名称:{data["blockname"]}')
+    print(f'方块id:{data["blockid"]}')
+    print(f'维度id:{data["dimensionid"]}')
+    # 该事件不可拦截
+
+
+@listener('onFireSpread')  # 火焰蔓延
+def onFireSpread(data):
+    print(f'方块坐标:{data["blockpos"]}')
+    print(f'方块名称:{data["blockname"]}')
+    print(f'方块id:{data["blockid"]}')
+    print(f'维度id:{data["dimensionid"]}')
+    # return False # 拦截该事件
+
+
+@listener('onBlockExploded')  # 方块爆炸
+def onBlockExploded(data):
+    print(f'被炸方块实体Entity对象:{data["actor"]}')
+    print(f'方块坐标:{data["blockpos"]}')
+    print(f'方块名称:{data["blockname"]}')
+    print(f'方块id:{data["blockid"]}')
+    print(f'维度id:{data["dimensionid"]}')
+    # 该事件不可拦截
