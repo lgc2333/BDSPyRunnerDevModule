@@ -352,7 +352,7 @@ def onFireSpread(data):
 
 @listener('onBlockExploded')  # 方块爆炸
 def onBlockExploded(data):
-    print(f'被炸方块实体Entity对象:{data["actor"]}')
+    print(f'爆炸源实体Entity对象:{data["actor"]}')
     print(f'方块坐标:{data["blockpos"]}')
     print(f'方块名称:{data["blockname"]}')
     print(f'方块id:{data["blockid"]}')
