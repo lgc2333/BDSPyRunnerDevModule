@@ -28,8 +28,8 @@
 
 *说实话这玩意是我拿代码自动生成的*
 
-![](https://i.loli.net/2021/08/06/QJMz7Zd28pEYHvC.png)
-![](https://i.loli.net/2021/08/06/C5P2HxJbYf619cQ.png)
+![](https://z3.ax1x.com/2021/08/19/fHy6N6.png)
+![](https://z3.ax1x.com/2021/08/19/fHyqC8.png)
 
 ----
 
