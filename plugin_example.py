@@ -30,13 +30,13 @@ def listener(event: str):
 @listener('onConsoleInput')  # 后台输入
 def onConsoleInput(data):
     print(f'指令数据:{data}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onConsoleOutput')  # 后台输出
 def onConsoleOutput(data):
     print(f'输出信息:{data}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onSelectForm')  # 选择表单
@@ -44,7 +44,7 @@ def onSelectForm(data):
     print(f'表单ID:{data["formid"]}')
     print(f'表单回传的选择项信息:{data["selected"]}')
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onUseItem')  # 使用物品
@@ -55,7 +55,7 @@ def onUseItem(data):
     print(f'物品特殊值:{data["itemaux"]}')
     print(f'物品名称:{data["itemname"]}')
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onPlaceBlock')  # 放置方块
@@ -64,7 +64,7 @@ def onPlaceBlock(data):
     print(f'方块ID:{data["blockid"]}')
     print(f'方块名称:{data["blockname"]}')
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onDestroyBlock')  # 破坏方块
@@ -73,14 +73,14 @@ def onDestroyBlock(data):
     print(f'方块ID:{data["blockid"]}')
     print(f'方块名称:{data["blockname"]}')
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onOpenChest')  # 打开箱子
 def onOpenChest(data):
     print(f'操作方块所在位置:{data["position"]}')
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onOpenBarrel')  # 打开木桶
@@ -121,7 +121,7 @@ def onContainerChange(data):
 @listener('onChangeDimension')  # 切换维度
 def onChangeDimension(data):
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onMobDie')  # 生物死亡
@@ -139,7 +139,7 @@ def onMobHurt(data):
     print(f'死亡实体Entity对象:{data["actor1"]}')
     print(f'伤害源实体Entity对象:{data["actor2"]}')
     print(f'理论伤害值:{data["damage"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onRespawn')  # 玩家重生
@@ -161,7 +161,7 @@ def onChat(data):
 def onInputText(data):
     print(f'输入的文本:{data["msg"]}')
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onCommandBlockUpdate')  # 更新命令方块
@@ -175,14 +175,14 @@ def onCommandBlockUpdate(data):
     print(f'命令方块名字:{data["rawname"]}')
     print(f'延迟:{data["delay"]}')
     print(f'命令方块所在位置:{data["position"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onInputCommand')  # 输入指令
 def onInputCommand(data):
     print(f'玩家输入的指令:{data["cmd"]}')
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onCommandBlockPerform')  # 命令方块执行
@@ -192,7 +192,7 @@ def onCommandBlockPerform(data):
     print(f'执行者所在位置:{data["position"]}')
     print(f'命令方块模式:{data["mode"]}')
     print(f'是否有条件:{data["condition"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onPlayerJoin')  # 加入游戏
@@ -211,7 +211,7 @@ def onPlayerLeft(data):
 def onPlayerAttack(data):
     print(f'被攻击实体Entity对象:{data["actor"]}')
     print(f'玩家Entity对象:{data["player"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onLevelExplode')  # 世界爆炸
@@ -220,7 +220,7 @@ def onLevelExplode(data):
     print(f'爆炸点所在位置:{data["position"]}')
     print(f'爆炸者所处维度ID:{data["dimensionid"]}')
     print(f'爆炸强度:{data["power"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onSetArmor')  # 玩家穿戴
@@ -239,7 +239,7 @@ def onFallBlockTransform(data):
     print(f'玩家Entity对象:{data["player"]}')
     print(f'方块所在位置:{data["position"]}')
     print(f'所处维度ID:{data["dimensionid"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onUseRespawnAnchorBlock')  # 使用重生锚
@@ -247,7 +247,7 @@ def onUseRespawnAnchorBlock(data):
     print(f'玩家Entity对象:{data["player"]}')
     print(f'方块所在位置:{data["position"]}')
     print(f'所处维度ID:{data["dimensionid"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onScoreChanged')  # 计分板改变
@@ -278,7 +278,7 @@ def onPistonPush(data):
 @listener('onEndermanRandomTeleport')  # 末影人随机传送
 def onEndermanRandomTeleport(data):
     print(f'末影人Entity对象:{data}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onServerStarted')  # 服务器启动
@@ -294,21 +294,21 @@ def onDropItem(data):
     print(f'物品数量:{data["itemcount"]}')
     print(f'物品名称:{data["itemname"]}')
     print(f'物品特殊值:{data["itemaux"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onTakeItem')  # 拾取物品
 def onTakeItem(data):
     print(f'拾取玩家Entity对象:{data["player"]}')
     print(f'拾取物品Entity对象:{data["actor"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onRide')  # 乘坐坐骑
 def onRide(data):
     print(f'乘坐玩家Entity对象:{data["actor1"]}')
     print(f'被乘坐生物Entity对象:{data["actor2"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onUseFrameBlock')  # 使用物品展示框
@@ -316,7 +316,7 @@ def onUseFrameBlock(data):
     print(f'玩家Entity对象:{data["player"]}')
     print(f'方块坐标:{data["blockpos"]}')
     print(f'维度id:{data["dimensionid"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onJump')  # 玩家跳跃
@@ -347,14 +347,43 @@ def onFireSpread(data):
     print(f'方块名称:{data["blockname"]}')
     print(f'方块id:{data["blockid"]}')
     print(f'维度id:{data["dimensionid"]}')
-    # return False # 拦截该事件
+    # return False  # 拦截该事件
 
 
 @listener('onBlockExploded')  # 方块爆炸
 def onBlockExploded(data):
-    print(f'爆炸源实体Entity对象:{data["actor"]}')
+    print(f'被炸方块实体Entity对象:{data["actor"]}')
     print(f'方块坐标:{data["blockpos"]}')
     print(f'方块名称:{data["blockname"]}')
     print(f'方块id:{data["blockid"]}')
     print(f'维度id:{data["dimensionid"]}')
     # 该事件不可拦截
+
+
+@listener('onUseSignBlock')  # 使用告示牌
+def onUseSignBlock(data):
+    print(f'玩家Entity对象:{data["player"]}')
+    print(f'告示牌文本内容:{data["text"]}')
+    print(f'坐标:{data["pos"]}')
+    # [有事私聊]hào好吃の饼干 19:53:11
+    # 这个pos是哪里的坐标
+    #
+    # twoone3 19:53:30
+    # 方块
+    #
+    # [有事私聊]hào好吃の饼干 19:53:48
+    # 告示牌方块还是被放置告示牌的方块
+    #
+    # twoone3 19:54:02
+    # 不知道
+    #
+    # twoone3 19:54:07
+    # 不必在意
+    #
+    # DespairLife 19:54:15
+    # 盲猜告示牌
+    #
+    # Lovable Rascal 19:54:17
+    # @[有事私聊]hào好吃の饼干 告示牌坐标吧
+
+    # return False  # 拦截该事件
