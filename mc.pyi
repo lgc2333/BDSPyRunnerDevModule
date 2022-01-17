@@ -3,6 +3,7 @@
 pyRunner辅助开发模块
 
 作者：student_2333
+后续协助开发：我什么都布吉岛
 
 根据pyr源代码和wiki编写
 
@@ -34,6 +35,8 @@ pyRunner辅助开发模块
 
 // 2021.8.6更新：适配pyr1.6.3
 
+// 2022.1.14更新：适配pyr1.9.0正式版 【我什么都布吉岛补充＆修改】新增一堆API及修改部分API
+
 QQ:3076823485
 
 E-mail:lgc2333@126.com
@@ -63,89 +66,101 @@ class Entity(object):
 
     @property
     def name(self) -> str:
-        """实体名字（可修改）"""
+        """得到实体名字"""
         ...
 
     @name.setter
     def name(self):
+        """设置实体名字"""
         ...
 
     @property
     def uuid(self) -> str:
-        """玩家UUID"""
+        """获取玩家UUID"""
         ...
 
     @property
     def xuid(self) -> str:
-        """玩家XUID"""
+        """获取玩家XUID"""
         ...
 
     @property
     def pos(self) -> tuple[float, float, float]:
-        """实体坐标"""
+        """获取实体坐标"""
         ...
 
     @property
     def did(self) -> int:
-        """实体维度ID(0主世界,1地狱,2末地)"""
+        """获取实体维度ID(0：主世界,1：地狱,2：末地)"""
         ...
 
     @property
-    def isstand(self) -> bool:
-        """实体是否着地"""
+    def is_standing(self) -> bool:
+        """获取实体是否站立在方块上"""
+        ...
+
+    @property
+    def is_sneaking(self) -> bool:
+        """获取实体是否潜行"""
         ...
 
     @property
     def typeid(self) -> int:
-        """实体类型id"""
+        """获取实体类型"""
         ...
 
     @property
     def typename(self) -> str:
-        """实体类型名称"""
+        """获取实体类型名称"""
         ...
 
     @property
     def nbt(self) -> str:
-        """实体nbt json数据"""
+        """获取实体nbt json数据"""
         ...
 
     @property
     def health(self) -> int:
-        """实体当前生命"""
+        """获取实体当前生命"""
+        ...
+
+    @health.setter
+    def health(self):
+        """设置实体当前生命"""
         ...
 
     @property
     def maxhealth(self) -> int:
-        """实体最大生命"""
+        """获取实体最大生命"""
+        ...
+
+    @maxhealth.setter
+    def maxhealth(self) -> int:
+        """设置实体最大生命"""
         ...
 
     @property
     def perm(self) -> int:
-        """玩家权限值（可修改，有0,1,2,3,4）"""
+        """获取玩家权限值（可修改，有0,1,2,3,4）"""
         ...
 
     @perm.setter
     def perm(self):
+        """设置玩家权限值（可修改，有0,1,2,3,4）"""
         ...
 
     @property
-    def issneak(self) -> bool:
-        """实体是否潜行"""
+    def platform_online_id(self) -> str:
+        """获取玩家的设备ID"""
         ...
 
     @property
-    def deviceos(self) -> int:
+    def platform(self) -> int:
         """玩家设备操作系统（1代表Android，7代表Win10）"""
         ...
 
     @property
-    def deviceid(self) -> str:
-        """玩家设备id（uuid字符串，可检测玩家是否由win10登录）"""
-        ...
-
-    @property
-    def ip(self) -> str:
+    def IP(self) -> str:
         """玩家ip地址"""
         ...
 
@@ -224,7 +239,7 @@ class Entity(object):
 
     def resendAllChunks(self):
         """
-        刷新玩家区块
+        重新发送玩家客户端的地图区块，可能造成亮度渲染问题
         """
         ...
 
@@ -245,13 +260,30 @@ class Entity(object):
         """
         ...
 
-    def modifyScore(self, object_name: str, count: int, mode: int):
+    def setScore(self, object_name: str, count: int):
         """
         设置玩家计分板分数
 
+        :param count: 设置的分数
         :param object_name: 计分板名称
-        :param count: 增减分数
-        :param mode: 修改模式 0,1,2对应set,add,remove
+        """
+        ...
+
+    def addScore(self, object_name: str, count: int):
+        """
+        增加玩家计分板分数
+
+        :param count: 设置的分数
+        :param object_name: 计分板名称
+        """
+        ...
+
+    def reduceScore(self, object_name: str, count: int):
+        """
+        减少玩家计分板分数
+
+        :param count: 设置的分数
+        :param object_name: 计分板名称
         """
         ...
 
@@ -272,20 +304,18 @@ class Entity(object):
         """
         ...
 
-    def sendCustomForm(self, form: str) -> Optional[int]:
+    def sendCustomForm(self, form: str, callBack: ()):
         """
         向指定的玩家发送一个自定义表单
 
-        例 player.sendCustomForm('{"content":[{"type":"label","text":"普通文本"},{"placeholder":"输入框","default":"默认值","type":"input","text":""},{"default":true,"type":"toggle","text":"开关"},{"min":0.0,"max":10.0,"step":1.0,"default":0.0,"type":"slider","text":"游标滑块"},{"default":1,"steps":["项目1","项目2","项目3"],"type":"step_slider","text":"矩阵滑块"},{"default":1,"options":["项目1","项目2","项目3"],"type":"dropdown","text":"下拉框"}],"type":"custom_form","title":"自定义窗体标题"}')
-
-        成功返回formid
+        例 player.sendCustomForm('{"content":[{"type":"label","text":"普通文本"},{"placeholder":"输入框","default":"默认值","type":"input","text":""},{"default":true,"type":"toggle","text":"开关"},{"min":0.0,"max":10.0,"step":1.0,"default":0.0,"type":"slider","text":"游标滑块"},{"default":1,"steps":["项目1","项目2","项目3"],"type":"step_slider","text":"矩阵滑块"},{"default":1,"options":["项目1","项目2","项目3"],"type":"dropdown","text":"下拉框"}],"type":"custom_form","title":"自定义窗体标题"}', 函数名)
 
         :param form: 表单json文本
-        :return: 表单id
+        :param callBack: 回调函数，接收两个参数分别是 player:Entity ,selected_data: str
         """
         ...
 
-    def sendSimpleForm(self, title: str, content: str, buttons: str) -> Optional[int]:
+    def sendSimpleForm(self, title: str, content: str, buttons: list[str], imageUrl: list[str], callBack: ()):
         """
         向指定的玩家发送一个简单表单
 
@@ -295,12 +325,13 @@ class Entity(object):
 
         :param title: 表单标题
         :param content: 表单内容
-        :param buttons: 表单按钮json数组文本
-        :return: 表单id
+        :param buttons: 表单按钮内容
+        :param imageUrl: 表单图片路径
+        :param callBack: 回调函数，接收两个参数分别是 player:Entity ,selected_item:int
         """
         ...
 
-    def sendModalForm(self, title: str, content: str, button1: str, button2: str) -> Optional[int]:
+    def sendModalForm(self, title: str, content: str, button1: str, button2: str, callBack: ()):
         """
         向指定的玩家发送一个模式对话框
 
@@ -312,7 +343,7 @@ class Entity(object):
         :param content: 表单内容
         :param button1: 按钮1标题
         :param button2: 按钮2标题
-        :return: 表单id
+        :param callBack: 回调函数，接收两个参数分别是 player:Entity ,selected_item:int
         """
         ...
 
@@ -321,7 +352,7 @@ class Entity(object):
         设置玩家自定义侧边栏
 
         :param title: 侧边栏标题
-        :param data: json格式侧边栏内容 例：{"我的数值是0":0, "我是2哒":2}
+        :param data: json格式侧边栏内容 例：{"我的数值是0":0, "我是2哒":2, "我是第几行？":3}
         """
         ...
 
@@ -338,7 +369,7 @@ class Entity(object):
         设置玩家Boss条
 
         :param title: Boss条标题
-        :param percent: 血量百分比
+        :param percent: 血量百分比(min:0,max:1)
         """
         ...
 
@@ -347,6 +378,30 @@ class Entity(object):
         移除玩家Boss条
         """
         ...
+
+    # 弃用
+    # def setSize(self, f1: float, f2: float):
+    #     """
+    #     设置玩家大小
+    #
+    #     ----
+    #
+    #     [常年失踪]hào好吃の饼干 19:56:11
+    #
+    #     setsize两个float代表啥 没看出来@twoone3
+    #
+    #     twoone3 19:56:49
+    #
+    #     不知道
+    #
+    #     twoone3 19:56:50
+    #
+    #     没用过
+    #
+    #     :param f1: 未知
+    #     :param f2: 未知
+    #     """
+    #     ...
 
     def addTag(self, tag: str):
         """
@@ -372,44 +427,19 @@ class Entity(object):
         """
         ...
 
-    def crash(self):
-        """
-        让玩家崩端
-        """
-        ...
 
-    def kill(self):
-        """
-        杀死实体
-        """
-        ...
-
-
-def minVersionRequire(v1: int, v2: int, v3: int):
+def getBDSVersion() -> str:
     """
-    检查插件版本是否符合pyr要求，如不符合则抛异常
+    获取BDS的版本号
 
-    :param v1: 插件适配pyr版本号第一位
-    :param v2: 插件适配pyr版本号第二位
-    :param v3: 插件适配pyr版本号第三位
-    """
-    ...
-
-
-def getVersion() -> int:
-    """
-    !!! 被摒弃的函数，使用minVersionRequire来代替 !!!
-
-    返回一个当前加载平台的版本号
-
-    :return: 版本代号
+    :return: 版本号
     """
     ...
 
 
 def logout(message: str):
     """
-    向控制台发送输出消息
+    向控制台发送输出消息(可拦截)
 
     :param message: 消息内容
     """
@@ -418,6 +448,7 @@ def logout(message: str):
 
 def runcmd(command: str):
     """
+    例 : mc.runcmd('say 你好twoone3')
     从控制台发送命令
 
     :param command: 命令内容
@@ -441,13 +472,13 @@ def setListener(event: str, function: Callable[[Any], Optional[bool]]):
     ...
 
 
-def setCommandDescription(command: str, description: str, callback: Callable[[Entity], None] = None):
+def setCommandDescription(command: str, description: str, callBack: () = None):
     """
     添加指令说明
 
     :param command: 设置说明的指令
     :param description: 指令说明
-    :param callback: 回调函数，原型：callback(player:mc.Entity) -> None
+    :param callBack: 可选的回调函数，触发命令回调，接收一个参数 player:Entity
     """
     ...
 
@@ -488,7 +519,7 @@ def setDamage(damage: int):
 
 def setServerMotd(motd: str):
     """
-    设置服务器外显名称(显示在服务器名称下方)
+    设置服务器外显名字(显示在服务器名称下方)
 
     :param motd: motd内容
     """
@@ -514,7 +545,7 @@ def setBlock(block: str, x: int, y: int, z: int, dimension_id: int):
     """
     设置指定位置的方块
 
-    :param block: 方块名称，必须使用驼峰式
+    :param block: 方块名称
     :param x: x坐标
     :param y: y坐标
     :param z: z坐标
@@ -525,7 +556,7 @@ def setBlock(block: str, x: int, y: int, z: int, dimension_id: int):
 
 def getStructure(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension_id: int) -> Optional[str]:
     """
-    获取两个坐标之间的结构
+    获取两个坐标之间的结构nbt数据
 
     成功返回json字符串，失败返回None
 
@@ -543,9 +574,7 @@ def getStructure(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension
 
 def setStructure(struct: str, x: int, y: int, z: int, dimension_id: int):
     """
-    设置两个坐标之间的结构
-
-    成功返回True，失败返回False或None
+    在(x,y,z)处设放置一个结构，struct为结构JSON字符串
 
     :param struct: 结构json字符串
     :param x: X轴坐标
@@ -553,20 +582,52 @@ def setStructure(struct: str, x: int, y: int, z: int, dimension_id: int):
     :param z: Z轴坐标
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
     """
-    ...
 
 
-def explode(x: float, y: float, z: float, did: int, power: float, destroy: bool, range: float, fire: bool):
+def explode(x: float, y: float, z: float, dimension_id: int, power: float, destory: bool, range: float, fire: bool):
     """
-    产生爆炸
+        产生爆炸
 
-    :param x: 爆炸源x坐标
-    :param y: 爆炸源y坐标
-    :param z: 爆炸源z坐标
-    :param did: 爆炸源维度id
-    :param power: 爆炸强度
-    :param destroy: 是否摧毁方块
-    :param range: 爆炸范围
-    :param fire: 是否生成火焰
+        :param x: X轴坐标
+        :param y: Y轴坐标
+        :param z: Z轴坐标
+        :param dimension_id: 维度id 0为主世界 1为下界 2为末地
+        :param power: 爆炸力量
+        :param destory: 是否摧毁周边方块（true和false）
+        :param range: 爆炸范围
+        :param fire: 爆炸后是否着火（true和false）
     """
-    ...
+
+
+def spawnItem(data: str, x: int, y: int, z: int, dimension_id: int):
+    """
+    生成一个掉落物，data为物品JSON字符串
+
+    :param data: 掉落物json字符串
+    :param x: X轴坐标
+    :param y: Y轴坐标
+    :param z: Z轴坐标
+    :param dimension_id: 维度id 0为主世界 1为下界 2为末地
+    """
+
+
+def setSignBlockMessage(msg: str, x: int, y: int, z: int, dimension_id: int):
+    """
+    设置牌子文字
+
+    :param msg: 设置牌子文字的内容
+    :param x: X轴坐标
+    :param y: Y轴坐标
+    :param z: Z轴坐标
+    :param dimension_id: 维度id 0为主世界 1为下界 2为末地
+    """
+
+
+def isSlimeChunk(x:int,y:int) -> bool:
+    """
+    检查是否为史莱姆区块
+
+    :param x: X轴坐标
+    :param y: Y轴坐标
+    :return: true和false
+    """
