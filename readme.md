@@ -1,6 +1,8 @@
 # BDSpyrunner辅助开发模块
 
-**本模块已适配pyr1.7.0**
+**本模块已适配pyr1.9.0**
+
+感谢 [我什么都布吉岛](https://github.com/The-Flash5) 的协助开发
 
 此模块适用于 [twoone3](https://github.com/twoone-3) 开发的BDSpyrunner
 
@@ -99,3 +101,5 @@ Telegram: @lgc2333
 2021.8.6 适配pyr1.6.3
 
 2021.8.19 尝试适配pyr1.7.0
+
+2022.1.14 适配pyr1.9.0(by [我什么都布吉岛](https://github.com/The-Flash5) )
