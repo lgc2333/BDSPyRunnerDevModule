@@ -1,6 +1,6 @@
 # BDSpyrunner辅助开发模块
 
-**本模块已适配pyr1.9.0**
+**本模块已适配pyr1.9.5**
 
 感谢 [我什么都布吉岛](https://github.com/The-Flash5) 的协助开发
 

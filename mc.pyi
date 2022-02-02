@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-pyRunner辅助开发模块
+PYRunner辅助开发模块
 
 作者：student_2333
 后续协助开发：我什么都布吉岛
@@ -65,102 +65,90 @@ class Entity(object):
         ...
 
     @property
-    def name(self) -> str:
-        """得到实体名字"""
+    def getName(self) -> str:
+        """实体名字（可修改）"""
         ...
 
-    @name.setter
-    def name(self):
-        """设置实体名字"""
-        ...
-
-    @property
-    def uuid(self) -> str:
-        """获取玩家UUID"""
+    @getName.setter
+    def setName(self):
         ...
 
     @property
-    def xuid(self) -> str:
-        """获取玩家XUID"""
+    def getUuid(self) -> str:
+        """玩家UUID"""
         ...
 
     @property
-    def pos(self) -> tuple[float, float, float]:
-        """获取实体坐标"""
+    def getXuid(self) -> str:
+        """玩家XUID"""
         ...
 
     @property
-    def did(self) -> int:
-        """获取实体维度ID(0：主世界,1：地狱,2：末地)"""
+    def getPos(self) -> tuple[float, float, float]:
+        """实体坐标"""
         ...
 
     @property
-    def is_standing(self) -> bool:
-        """获取实体是否站立在方块上"""
+    def getDimensionId(self) -> int:
+        """实体维度ID(0主世界,1地狱,2末地)"""
         ...
 
     @property
-    def is_sneaking(self) -> bool:
-        """获取实体是否潜行"""
+    def isStanding(self) -> bool:
+        """实体是否站立在方块上"""
         ...
 
     @property
-    def typeid(self) -> int:
-        """获取实体类型"""
+    def isSneaking(self) -> bool:
+        """实体是否潜行"""
+
+    @property
+    def getTypeID(self) -> int:
+        """实体类型"""
         ...
 
     @property
-    def typename(self) -> str:
-        """获取实体类型名称"""
+    def getTypeName(self) -> str:
+        """实体类型名称"""
         ...
 
     @property
-    def nbt(self) -> str:
-        """获取实体nbt json数据"""
+    def getNBT(self) -> str:
+        """实体nbt json数据"""
         ...
 
     @property
-    def health(self) -> int:
-        """获取实体当前生命"""
-        ...
-
-    @health.setter
-    def health(self):
-        """设置实体当前生命"""
+    def getHealth(self) -> int:
+        """实体当前生命"""
         ...
 
     @property
-    def maxhealth(self) -> int:
-        """获取实体最大生命"""
-        ...
-
-    @maxhealth.setter
-    def maxhealth(self) -> int:
-        """设置实体最大生命"""
+    def getMaxHealth(self) -> int:
+        """实体最大生命"""
         ...
 
     @property
-    def perm(self) -> int:
-        """获取玩家权限值（可修改，有0,1,2,3,4）"""
+    def getPermissions(self) -> int:
+        """玩家权限值（可修改，有0,1,2,3,4）"""
         ...
 
-    @perm.setter
-    def perm(self):
+    @getPermissions.setter
+    def setPermissions(self, perm: int):
         """设置玩家权限值（可修改，有0,1,2,3,4）"""
         ...
 
     @property
-    def platform_online_id(self) -> str:
-        """获取玩家的设备ID"""
+    def getPlatformOnlineId(self) -> str:
+        """设备id（uuid字符串，可检测玩家是否由win10登录）"""
         ...
 
     @property
-    def platform(self) -> int:
-        """玩家设备操作系统（1代表Android，7代表Win10）"""
+    def getPlatform(self) -> int:
+        """设备类型（可检测玩家是否由安卓登录）"""
         ...
 
     @property
-    def IP(self) -> str:
+    def getIP(self) -> str:
         """玩家ip地址"""
         ...
 
@@ -218,7 +206,7 @@ class Entity(object):
         """
         ...
 
-    def sendTextPacket(self, message: str, mode: int):
+    def sendText(self, message: str, mode: int):
         """
         向玩家发送各种消息
 
@@ -229,7 +217,7 @@ class Entity(object):
         """
         ...
 
-    def sendCommandPacket(self, command: str):
+    def runCommandAs(self, command: str):
         """
         模拟玩家发出指令
 
@@ -239,7 +227,7 @@ class Entity(object):
 
     def resendAllChunks(self):
         """
-        重新发送玩家客户端的地图区块，可能造成亮度渲染问题
+        刷新玩家区块
         """
         ...
 
@@ -264,27 +252,31 @@ class Entity(object):
         """
         设置玩家计分板分数
 
-        :param count: 设置的分数
         :param object_name: 计分板名称
+        :param count: 设置的分数指
         """
         ...
 
     def addScore(self, object_name: str, count: int):
         """
-        增加玩家计分板分数
+        添加玩家的计分板分数
 
-        :param count: 设置的分数
         :param object_name: 计分板名称
+        :param count: 增加的分数值
         """
         ...
 
     def reduceScore(self, object_name: str, count: int):
         """
-        减少玩家计分板分数
+        添加玩家的计分板分数
 
-        :param count: 设置的分数
         :param object_name: 计分板名称
+        :param count: 减少的分数值
         """
+        ...
+
+    def getLevel(self) -> Optional[int]:
+        """获取等级"""
         ...
 
     def addLevel(self, level: int):
@@ -307,7 +299,6 @@ class Entity(object):
     def sendCustomForm(self, form: str, callBack: ()):
         """
         向指定的玩家发送一个自定义表单
-
         例 player.sendCustomForm('{"content":[{"type":"label","text":"普通文本"},{"placeholder":"输入框","default":"默认值","type":"input","text":""},{"default":true,"type":"toggle","text":"开关"},{"min":0.0,"max":10.0,"step":1.0,"default":0.0,"type":"slider","text":"游标滑块"},{"default":1,"steps":["项目1","项目2","项目3"],"type":"step_slider","text":"矩阵滑块"},{"default":1,"options":["项目1","项目2","项目3"],"type":"dropdown","text":"下拉框"}],"type":"custom_form","title":"自定义窗体标题"}', 函数名)
 
         :param form: 表单json文本
@@ -318,10 +309,7 @@ class Entity(object):
     def sendSimpleForm(self, title: str, content: str, buttons: list[str], imageUrl: list[str], callBack: ()):
         """
         向指定的玩家发送一个简单表单
-
-        例 player.sendSimpleForm('致命选项', '请选择：', '[{"text":"生存"},{"text":"死亡"},{"text":"求助"}]')
-
-        成功返回formid
+        例 player.sendSimpleForm('这是title', '这是Content：', ['按钮1','按钮2'],['图片Url路径1',‘图片Url路径2’])
 
         :param title: 表单标题
         :param content: 表单内容
@@ -334,10 +322,7 @@ class Entity(object):
     def sendModalForm(self, title: str, content: str, button1: str, button2: str, callBack: ()):
         """
         向指定的玩家发送一个模式对话框
-
         例 player.sendModalForm('没有第三个选项', '请选择：', '生存', '死亡')
-
-        成功返回formid，失败返回None
 
         :param title: 表单标题
         :param content: 表单内容
@@ -373,13 +358,15 @@ class Entity(object):
         """
         ...
 
-    def removeBossBar(self):
+    def removeBossBar(self, title: str):
         """
         移除玩家Boss条
+
+        :param title: 要移除的Boss条标题
         """
         ...
 
-    # 弃用
+    # 已移除
     # def setSize(self, f1: float, f2: float):
     #     """
     #     设置玩家大小
@@ -427,28 +414,30 @@ class Entity(object):
         """
         ...
 
+    def kill(self):
+        """杀死实体"""
 
-def getBDSVersion() -> str:
+
+def getBDSVersion() -> int:
     """
-    获取BDS的版本号
+    返回一个当前加载平台的版本号
 
-    :return: 版本号
+    :return: 版本代号
     """
     ...
 
 
 def logout(message: str):
     """
-    向控制台发送输出消息(可拦截)
+    向控制台发送输出消息
 
     :param message: 消息内容
     """
     ...
 
 
-def runcmd(command: str):
+def runCommand(command: str):
     """
-    例 : mc.runcmd('say 你好twoone3')
     从控制台发送命令
 
     :param command: 命令内容
@@ -472,13 +461,13 @@ def setListener(event: str, function: Callable[[Any], Optional[bool]]):
     ...
 
 
-def setCommandDescription(command: str, description: str, callBack: () = None):
+def registerCommand(command: str, callBack: (), description: str):
     """
     添加指令说明
 
     :param command: 设置说明的指令
+    :param callBack: 注册的这个命令被执行时，自动调用的回调函数。
     :param description: 指令说明
-    :param callBack: 可选的回调函数，触发命令回调，接收一个参数 player:Entity
     """
     ...
 
@@ -506,20 +495,21 @@ def getPlayerList() -> list[Entity]:
     ...
 
 
-def setDamage(damage: int):
-    """
-    注：此函数仅在生物受伤onMobHurt监听下调用才能生效
-
-    设置生物受伤的伤害值
-
-    :param damage: 伤害值
-    """
-    ...
+# 已移除
+# def setDamage(damage: int):
+#     """
+#     注：此函数仅在生物受伤onMobHurt监听下调用才能生效
+#
+#     设置生物受伤的伤害值
+#
+#     :param damage: 伤害值
+#     """
+#     ...
 
 
 def setServerMotd(motd: str):
     """
-    设置服务器外显名字(显示在服务器名称下方)
+    设置服务器motd(显示在服务器名称下方)
 
     :param motd: motd内容
     """
@@ -554,9 +544,10 @@ def setBlock(block: str, x: int, y: int, z: int, dimension_id: int):
     ...
 
 
-def getStructure(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension_id: int) -> Optional[str]:
+def getStructure(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension_id: int, ignore_entities: bool,
+                 ignore_blocks: bool) -> Optional[str]:
     """
-    获取两个坐标之间的结构nbt数据
+    获取两个坐标之间的结构
 
     成功返回json字符串，失败返回None
 
@@ -567,67 +558,109 @@ def getStructure(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension
     :param y2: 坐标点2 Y轴坐标
     :param z2: 坐标点2 Z轴坐标
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
+    :param ignore_blocks: 是否忽略方块
+    :param ignore_entities: 是否忽略实体
     :return: 结构json字符串
     """
     ...
 
 
-def setStructure(struct: str, x: int, y: int, z: int, dimension_id: int):
+def setStructure(struct: str, x: int, y: int, z: int, dimension_id: int, mirror: int, rotation: int):
     """
-    在(x,y,z)处设放置一个结构，struct为结构JSON字符串
+    从JSON字符串NBT结构数据导出结构到指定地点
 
-    :param struct: 结构json字符串
-    :param x: X轴坐标
-    :param y: Y轴坐标
-    :param z: Z轴坐标
+    :param struct: 设置结构的数据
+    :param x: 坐标点1 X轴坐标
+    :param y: 坐标点1 Y轴坐标
+    :param z: 坐标点1 Z轴坐标
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
+    :param mirror: 是否镜像放置 0：否  1：是
+    :param rotation: 旋转角度
     """
 
 
-def explode(x: float, y: float, z: float, dimension_id: int, power: float, destory: bool, range: float, fire: bool):
+def getStructureBinary(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension_id: int, ignore_entities: bool,
+                       ignore_blocks: bool) -> Optional[str]:
     """
-        产生爆炸
+    从指定地点获取二进制NBT结构数据
 
-        :param x: X轴坐标
-        :param y: Y轴坐标
-        :param z: Z轴坐标
-        :param dimension_id: 维度id 0为主世界 1为下界 2为末地
-        :param power: 爆炸力量
-        :param destory: 是否摧毁周边方块（true和false）
-        :param range: 爆炸范围
-        :param fire: 爆炸后是否着火（true和false）
-    """
-
-
-def spawnItem(data: str, x: int, y: int, z: int, dimension_id: int):
-    """
-    生成一个掉落物，data为物品JSON字符串
-
-    :param data: 掉落物json字符串
-    :param x: X轴坐标
-    :param y: Y轴坐标
-    :param z: Z轴坐标
+    成功返回json字符串，失败返回None
+    :param ignore_blocks:
+    :param ignore_entities:
+    :param x1: 坐标点1 X轴坐标
+    :param y1: 坐标点1 Y轴坐标
+    :param z1: 坐标点1 Z轴坐标
+    :param x2: 坐标点2 X轴坐标
+    :param y2: 坐标点2 Y轴坐标
+    :param z2: 坐标点2 Z轴坐标
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
+    :param ignore_blocks: 是否忽略方块
+    :param ignore_entities: 是否忽略实体
+    :return: 结构json字符串
     """
 
 
-def setSignBlockMessage(msg: str, x: int, y: int, z: int, dimension_id: int):
+def setStructureBinary(struct: str, struct_size: int, x: int, y: int, z: int, dimension_id: int, mirror: int,
+                       rotation: int):
+    """
+    从二进制NBT结构数据导出结构到指定地点
+
+    :param struct: 设置结构的数据
+    :param struct_size: 结构大小
+    :param x: 坐标点1 X轴坐标
+    :param y: 坐标点1 Y轴坐标
+    :param z: 坐标点1 Z轴坐标
+    :param dimension_id: 维度id 0为主世界 1为下界 2为末地
+    :param mirror: 是否镜像放置 0：否  1：是
+    :param rotation: 旋转角度
+    :return: 结构json字符串
+    """
+
+
+def explode(x: float, y: float, z: float, did: int, power: float, destroy: bool, range: float, fire: bool):
+    """
+
+    :param x: X坐标
+    :param y: Y坐标
+    :param z: Z坐标
+    :param did: 维度id 0为主世界 1为下界 2为末地
+    :param power: 力量
+    :param destroy: 是否摧毁方块
+    :param range: 爆炸范围
+    :param fire: 是否着火
+    """
+
+
+def spawnItem(itemData: str, x: float, y: float, z: float, did: int):
+    """
+    根据物品NBT结构和坐标生成物品
+
+    :param itemData: NBT结构的物品
+    :param x: X坐标
+    :param y: Y坐标
+    :param z: Z坐标
+    :param did: 维度id 0为主世界 1为下界 2为末地
+    """
+
+
+def isSlimeChunk(x: int, z: int) -> Optional[bool]:
+    """
+    是否为史莱姆区块
+
+    :param x: X坐标
+    :param z: Z坐标
+    :return: True 和 False
+    """
+
+
+def setSignBlockMessage(content: str, x: int, y: int, z: int, dimension_id: int):
     """
     设置牌子文字
 
-    :param msg: 设置牌子文字的内容
-    :param x: X轴坐标
-    :param y: Y轴坐标
-    :param z: Z轴坐标
+    :param content: 牌子文字内容
+    :param x: 坐标X轴
+    :param y: 坐标Y轴
+    :param z: 坐标Z轴
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
-    """
-
-
-def isSlimeChunk(x:int,y:int) -> bool:
-    """
-    检查是否为史莱姆区块
-
-    :param x: X轴坐标
-    :param y: Y轴坐标
-    :return: true和false
+    :return:
     """
