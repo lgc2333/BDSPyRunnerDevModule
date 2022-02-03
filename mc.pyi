@@ -1,62 +1,20 @@
 # coding=utf-8
 """
-PYRunner辅助开发模块
+BDSPyRunner辅助开发模块
 
 作者：student_2333
 后续协助开发：我什么都布吉岛
 
-根据pyr源代码和wiki编写
+根据pyr源代码和wiki编写，如有错误请指正
 
-如有错误请指正
-
-// 2021.4.4更新：适配pyr1.3
-
-// 2021.4.4b2更新：适配pyr1.3.4
-
-// 2021.4.5更新：修正newThread函数名错误
-
-// 2021.4.20更新：适配pyr1.4.1
-
-// 2021.4.27更新：增加插件开发模板
-
-// 2021.5.12更新：修正一些小错误，添加setTimeout函数，移除newThread函数
-
-// 2021.6.5更新：适配pyr1.4.5
-
-// 2021.6.7更新：适配pyr1.5.0
-
-// 2021.6.14更新：适配pyr1.5.4以及一些小更改
-
-// 2021.8.5更新：适配pyr1.6.1以及一些小更改
-
-// 2021.8.5b2更新：修正了一些小错误
-
-// 2021.8.5b3更新：修正了disconnect的参数错误
-
-// 2021.8.6更新：适配pyr1.6.3
-
-// 2022.1.14更新：适配pyr1.9.0正式版 【我什么都布吉岛补充＆修改】新增一堆API及修改部分API
-
-QQ:3076823485
-
-E-mail:lgc2333@126.com
-
-Telegram:@lgc2333
+更新日志见 https://github.com/lgc2333/BDSPyRunnerDevModule#%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95
 """
 from typing import Optional, Callable, Any
 
 
 class Entity(object):
     """
-    Entity类，旧版为player和actor指针
-
-    如果获取或设置信息失败会抛异常
-
-    name属性与perm属性有setter，可以直接entity.name="xxx"修改，其他属性不行
-
-    Q:属性是储存在每个对象里吗？那样会不会很耗内存？
-
-    A:不是，对象只存了一个实体指针，取属性时通过指针获取，相比老版本的getPlayerInfo，这种取属性的做法更加高效而且易于使用Entity的成员函数
+    Entity类
 
     tip:mc模块dict在pyr1.5.4版加入该对象，可以用代码实例化该对象，传入一个现有Entity对象即可复制一份
     """
@@ -64,90 +22,72 @@ class Entity(object):
     def __init__(self, entity: Entity):
         ...
 
-    @property
     def getName(self) -> str:
         """实体名字（可修改）"""
         ...
 
-    @getName.setter
     def setName(self):
         ...
 
-    @property
     def getUuid(self) -> str:
         """玩家UUID"""
         ...
 
-    @property
     def getXuid(self) -> str:
         """玩家XUID"""
         ...
 
-    @property
     def getPos(self) -> tuple[float, float, float]:
         """实体坐标"""
         ...
 
-    @property
     def getDimensionId(self) -> int:
         """实体维度ID(0主世界,1地狱,2末地)"""
         ...
 
-    @property
     def isStanding(self) -> bool:
         """实体是否站立在方块上"""
         ...
 
-    @property
     def isSneaking(self) -> bool:
         """实体是否潜行"""
 
-    @property
     def getTypeID(self) -> int:
         """实体类型"""
         ...
 
-    @property
     def getTypeName(self) -> str:
         """实体类型名称"""
         ...
 
-    @property
     def getNBT(self) -> str:
         """实体nbt json数据"""
         ...
 
-    @property
     def getHealth(self) -> int:
         """实体当前生命"""
         ...
 
-    @property
     def getMaxHealth(self) -> int:
         """实体最大生命"""
         ...
 
-    @property
     def getPermissions(self) -> int:
         """玩家权限值（可修改，有0,1,2,3,4）"""
         ...
 
-    @getPermissions.setter
     def setPermissions(self, perm: int):
         """设置玩家权限值（可修改，有0,1,2,3,4）"""
         ...
 
-    @property
     def getPlatformOnlineId(self) -> str:
         """设备id（uuid字符串，可检测玩家是否由win10登录）"""
         ...
 
-    @property
     def getPlatform(self) -> int:
         """设备类型（可检测玩家是否由安卓登录）"""
         ...
 
-    @property
     def getIP(self) -> str:
         """玩家ip地址"""
         ...
@@ -296,7 +236,7 @@ class Entity(object):
         """
         ...
 
-    def sendCustomForm(self, form: str, callBack: ()):
+    def sendCustomForm(self, form: str, callBack: Callable[[Entity, str], None]):
         """
         向指定的玩家发送一个自定义表单
         例 player.sendCustomForm('{"content":[{"type":"label","text":"普通文本"},{"placeholder":"输入框","default":"默认值","type":"input","text":""},{"default":true,"type":"toggle","text":"开关"},{"min":0.0,"max":10.0,"step":1.0,"default":0.0,"type":"slider","text":"游标滑块"},{"default":1,"steps":["项目1","项目2","项目3"],"type":"step_slider","text":"矩阵滑块"},{"default":1,"options":["项目1","项目2","项目3"],"type":"dropdown","text":"下拉框"}],"type":"custom_form","title":"自定义窗体标题"}', 函数名)
@@ -306,7 +246,8 @@ class Entity(object):
         """
         ...
 
-    def sendSimpleForm(self, title: str, content: str, buttons: list[str], imageUrl: list[str], callBack: ()):
+    def sendSimpleForm(self, title: str, content: str, buttons: list[str], imageUrl: list[str],
+                       callBack: Callable[[Entity, int], None]):
         """
         向指定的玩家发送一个简单表单
         例 player.sendSimpleForm('这是title', '这是Content：', ['按钮1','按钮2'],['图片Url路径1',‘图片Url路径2’])
@@ -319,7 +260,8 @@ class Entity(object):
         """
         ...
 
-    def sendModalForm(self, title: str, content: str, button1: str, button2: str, callBack: ()):
+    def sendModalForm(self, title: str, content: str, button1: str, button2: str,
+                      callBack: Callable[[Entity, int], None]):
         """
         向指定的玩家发送一个模式对话框
         例 player.sendModalForm('没有第三个选项', '请选择：', '生存', '死亡')
@@ -344,8 +286,6 @@ class Entity(object):
     def removeSideBar(self):
         """
         移除玩家自定义侧边栏
-
-        :param self: 目标玩家
         """
         ...
 
@@ -365,30 +305,6 @@ class Entity(object):
         :param title: 要移除的Boss条标题
         """
         ...
-
-    # 已移除
-    # def setSize(self, f1: float, f2: float):
-    #     """
-    #     设置玩家大小
-    #
-    #     ----
-    #
-    #     [常年失踪]hào好吃の饼干 19:56:11
-    #
-    #     setsize两个float代表啥 没看出来@twoone3
-    #
-    #     twoone3 19:56:49
-    #
-    #     不知道
-    #
-    #     twoone3 19:56:50
-    #
-    #     没用过
-    #
-    #     :param f1: 未知
-    #     :param f2: 未知
-    #     """
-    #     ...
 
     def addTag(self, tag: str):
         """
@@ -416,6 +332,61 @@ class Entity(object):
 
     def kill(self):
         """杀死实体"""
+        ...
+
+    def getGameMode(self) -> int:
+        """
+        获取玩家游戏模式
+
+        :return: 游戏模式（0：生存 1：创造 2：冒险）
+        """
+        ...
+
+
+class BlockInstance:
+    """
+    PyBlockInstance
+
+    注意：无法直接实例化该类，无法使用 [var: BlockInstance] 注解，请使用 [# type: BlockInstance] 注释代替
+    """
+
+    def getName(self) -> str:
+        """
+        获取方块名字（例：minecraft:stone）
+        """
+        ...
+
+    def getPos(self) -> list[int, int, int]:
+        """
+        获取方块坐标
+        """
+        ...
+
+    def getDimensionId(self) -> int:
+        """
+        获取方块维度ID（0：主世界 1：下界 2：末地）
+        """
+        ...
+
+
+class Item:
+    """
+    PyItemStack
+
+    注意：无法直接实例化该类，无法使用 [var: Item] 注解，请使用 [# type: Item] 注释代替
+    """
+
+    def getName(self) -> str:
+        """
+        获取物品名称（例：Diamond Sword）
+        """
+        ...
+
+    def getNBT(self) -> str:
+        """
+        获取物品NBT Json字符串
+        """
+        ...
 
 
 def getBDSVersion() -> int:
@@ -493,18 +464,6 @@ def getPlayerList() -> list[Entity]:
     :return: 玩家列表
     """
     ...
-
-
-# 已移除
-# def setDamage(damage: int):
-#     """
-#     注：此函数仅在生物受伤onMobHurt监听下调用才能生效
-#
-#     设置生物受伤的伤害值
-#
-#     :param damage: 伤害值
-#     """
-#     ...
 
 
 def setServerMotd(motd: str):

@@ -21,17 +21,25 @@
 
 ### 图骗欣赏
 
-![](https://i.loli.net/2021/08/06/aSMFYUjAfB6dvxc.png)
-![](https://i.loli.net/2021/08/06/tAaCO5gonbh2ZGe.png)
-![](https://i.loli.net/2021/08/06/mlW6BhKYcgsQUpz.png)
-![](https://i.loli.net/2021/08/06/jK8oXxbtENgGDMs.png)
+![](./readme/module1.png)
+
+![](./readme/module2.png)
+
+![](./readme/module3.png)
+
+![](./readme/module4.png)
+
+![](./readme/module5.png)
+
+![](./readme/module6.png)
 
 **插件模板（一部分）**
 
-*说实话这玩意是我拿代码自动生成的*
+*说实话这玩意一部分是我拿代码自动生成的*
 
-![](https://z3.ax1x.com/2021/08/19/fHy6N6.png)
-![](https://z3.ax1x.com/2021/08/19/fHyqC8.png)
+![](./readme/plugin_example1.png)
+
+![](./readme/plugin_example2.png)
 
 ----
 
@@ -102,4 +110,8 @@ Telegram: @lgc2333
 
 2021.8.19 尝试适配pyr1.7.0
 
-2022.1.14 适配pyr1.9.0(by [我什么都布吉岛](https://github.com/The-Flash5) )
+2022.1.14 适配pyr1.9.0(by [我什么都布吉岛](https://github.com/The-Flash5))
+
+2022.2.2 适配pyr1.9.5(by [我什么都布吉岛](https://github.com/The-Flash5))
+
+2022.2.4 插件模板重写，模块修正部分内容
