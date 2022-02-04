@@ -432,7 +432,7 @@ def setListener(event: str, function: Callable[[Any], Optional[bool]]):
     ...
 
 
-def registerCommand(command: str, callBack: (), description: str):
+def registerCommand(command: str, callBack: Callable[[Entity], None], description: str):
     """
     添加指令说明
 
@@ -471,6 +471,29 @@ def setServerMotd(motd: str):
     设置服务器motd(显示在服务器名称下方)
 
     :param motd: motd内容
+    """
+    ...
+
+
+def broadcastText(text: str, type: str):
+    """
+    广播文本
+
+    :param text: 文本
+    :param type: 模式 RAW CHAT TRANSLATION POPUP JUKEBOX_POPUP TIP SYSTEM WHISPER ANNOUNCEMENT JSON_WHISPER JSON
+    """
+    ...
+
+
+def broadcastTitle(text: str, type: str, fade_in_duration: int, remain_duration: int, fade_out_duration: int):
+    """
+    广播标题
+
+    :param text: 标题
+    :param type: 模式 Clear Reset SetTitle SetSubtitle SetActionBar SetDurations TitleTextObject SubtitleTextObject ActionbarTextObject
+    :param fade_in_duration: 淡入时间
+    :param remain_duration: 停留时间
+    :param fade_out_duration: 淡出时间
     """
     ...
 
@@ -536,10 +559,11 @@ def setStructure(struct: str, x: int, y: int, z: int, dimension_id: int, mirror:
     :param mirror: 是否镜像放置 0：否  1：是
     :param rotation: 旋转角度
     """
+    ...
 
 
 def getStructureBinary(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension_id: int, ignore_entities: bool,
-                       ignore_blocks: bool) -> Optional[str]:
+                       ignore_blocks: bool) -> Optional[bytes]:
     """
     从指定地点获取二进制NBT结构数据
 
@@ -555,8 +579,9 @@ def getStructureBinary(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dim
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
     :param ignore_blocks: 是否忽略方块
     :param ignore_entities: 是否忽略实体
-    :return: 结构json字符串
+    :return: 结构数据
     """
+    ...
 
 
 def setStructureBinary(struct: str, struct_size: int, x: int, y: int, z: int, dimension_id: int, mirror: int,
@@ -572,8 +597,8 @@ def setStructureBinary(struct: str, struct_size: int, x: int, y: int, z: int, di
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
     :param mirror: 是否镜像放置 0：否  1：是
     :param rotation: 旋转角度
-    :return: 结构json字符串
     """
+    ...
 
 
 def explode(x: float, y: float, z: float, did: int, power: float, destroy: bool, range: float, fire: bool):
@@ -588,6 +613,7 @@ def explode(x: float, y: float, z: float, did: int, power: float, destroy: bool,
     :param range: 爆炸范围
     :param fire: 是否着火
     """
+    ...
 
 
 def spawnItem(itemData: str, x: float, y: float, z: float, did: int):
@@ -600,6 +626,7 @@ def spawnItem(itemData: str, x: float, y: float, z: float, did: int):
     :param z: Z坐标
     :param did: 维度id 0为主世界 1为下界 2为末地
     """
+    ...
 
 
 def isSlimeChunk(x: int, z: int) -> Optional[bool]:
@@ -610,6 +637,7 @@ def isSlimeChunk(x: int, z: int) -> Optional[bool]:
     :param z: Z坐标
     :return: True 和 False
     """
+    ...
 
 
 def setSignBlockMessage(content: str, x: int, y: int, z: int, dimension_id: int):
@@ -621,5 +649,5 @@ def setSignBlockMessage(content: str, x: int, y: int, z: int, dimension_id: int)
     :param y: 坐标Y轴
     :param z: 坐标Z轴
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
-    :return:
     """
+    ...
