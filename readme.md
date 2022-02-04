@@ -1,5 +1,9 @@
 # BDSpyrunner辅助开发模块
 
+[![wakatime](https://wakatime.com/badge/user/b61b0f9a-f40b-4c82-bc51-0a75c67bfccf/project/03b54761-d478-472e-a9d6-211cf047cce6.svg)](https://wakatime.com/badge/user/b61b0f9a-f40b-4c82-bc51-0a75c67bfccf/project/03b54761-d478-472e-a9d6-211cf047cce6)
+[![wakatime](https://wakatime.com/badge/user/b61b0f9a-f40b-4c82-bc51-0a75c67bfccf/project/bd7d0e0f-4bf7-48ec-9573-d02e74b8c88e.svg)](https://wakatime.com/badge/user/b61b0f9a-f40b-4c82-bc51-0a75c67bfccf/project/bd7d0e0f-4bf7-48ec-9573-d02e74b8c88e)
+[![CodeFactor](https://www.codefactor.io/repository/github/lgc2333/bdspyrunnerdevmodule/badge)](https://www.codefactor.io/repository/github/lgc2333/bdspyrunnerdevmodule)
+
 **本模块已适配pyr1.9.5**
 
 感谢 [我什么都布吉岛](https://github.com/The-Flash5) 的协助开发
