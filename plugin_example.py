@@ -602,3 +602,12 @@ def onEffectChanged(data):
     print(f'改变效果的玩家：{data["Player"]}')
     print(f'改变类型：{data["Type"]}')
     # return False  # 拦截此事件
+
+
+@listener('onServerStarted')
+def onServerStarted(data)
+    """
+    服务器启动
+    """
+    print(f'事件名：{data["Event"]}')
+    # 无法拦截此事件
