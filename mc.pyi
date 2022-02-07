@@ -9,7 +9,7 @@ BDSPyRunner辅助开发模块
 
 更新日志见 https://github.com/lgc2333/BDSPyRunnerDevModule#%E6%9B%B4%E6%96%B0%E8%AE%B0%E5%BD%95
 """
-from typing import Optional, Callable, Any
+from typing import Optional, Callable, Any, Tuple, List
 
 
 class Entity(object):
@@ -52,7 +52,7 @@ class Entity(object):
     def isSneaking(self) -> bool:
         """实体是否潜行"""
 
-    def getTypeID(self) -> int:
+    def getTypeId(self) -> int:
         """实体类型"""
         ...
 
@@ -60,8 +60,17 @@ class Entity(object):
         """实体类型名称"""
         ...
 
-    def getNBT(self) -> str:
-        """实体nbt json数据"""
+    def getNBT(self) -> NBT:
+        """实体nbt"""
+        ...
+
+    def setNBT(self, nbt: NBT) -> bool:
+        """
+        设置实体NBT
+
+        :param nbt: NBT数据
+        :return: 是否成功
+        """
         ...
 
     def getHealth(self) -> int:
@@ -92,37 +101,19 @@ class Entity(object):
         """玩家ip地址"""
         ...
 
-    def getAllItem(self) -> Optional[str]:
-        """
-        获取玩家所有物品
-
-        返回json文本，包含键：Inventory, EndChest, Armor, OffHand, Hand
-
-        :return: 玩家物品信息
-        """
-        ...
-
-    def setAllItem(self, items: str):
-        """
-        设置玩家所有物品
-
-        :param items: json文本，格式同GetAllItem，当某键不存在时不设置
-        """
-        ...
-
-    def setHand(self, item: str):
+    def setHand(self, item: Item):
         """
         设置主手物品
 
-        :param item: 物品信息json文本 例{"Count1": 1,"Damage2":0,"Name8":"minecraft:netherite_sword","WasPickedUp1":0,"tag10":{"RepairCost3":3,"display10":{"Name8":"下界合金剑"},"ench9":[{"id2":9,"lvl2": 5},{"id2":13,"lvl2":2}]}}
+        :param item: 物品信息NBT
         """
         ...
 
-    def addItem(self, item: str):
+    def addItem(self, item: Item):
         """
         给予玩家物品
 
-        :param item: 物品信息json文本 例{"Count1": 1,"Damage2":0,"Name8":"minecraft:netherite_sword","WasPickedUp1":0,"tag10":{"RepairCost3":3,"display10":{"Name8":"下界合金剑"},"ench9":[{"id2":9,"lvl2": 5},{"id2":13,"lvl2":2}]}}
+        :param item: 物品信息NBT
         """
         ...
 
@@ -146,7 +137,7 @@ class Entity(object):
         """
         ...
 
-    def sendText(self, message: str, mode: int):
+    def sendText(self, message: str, mode: int = 0):
         """
         向玩家发送各种消息
 
@@ -171,7 +162,7 @@ class Entity(object):
         """
         ...
 
-    def disconnect(self, msg: str):
+    def disconnect(self, msg: str = ''):
         """
         断开玩家连接(相当于kick)
 
@@ -213,10 +204,6 @@ class Entity(object):
         :param object_name: 计分板名称
         :param count: 减少的分数值
         """
-        ...
-
-    def getLevel(self) -> Optional[int]:
-        """获取等级"""
         ...
 
     def addLevel(self, level: int):
@@ -274,12 +261,13 @@ class Entity(object):
         """
         ...
 
-    def setSideBar(self, title: str, data: str):
+    def setSideBar(self, title: str, data: str, order: int = 0):
         """
         设置玩家自定义侧边栏
 
         :param title: 侧边栏标题
         :param data: json格式侧边栏内容 例：{"我的数值是0":0, "我是2哒":2, "我是第几行？":3}
+        :param order: 插入顺序
         """
         ...
 
@@ -347,7 +335,7 @@ class BlockInstance:
     """
     PyBlockInstance
 
-    注意：无法直接实例化该类，无法使用 [var: BlockInstance] 注解，请使用 [# type: BlockInstance] 注释代替
+    注意：无法直接实例化该类
     """
 
     def getName(self) -> str:
@@ -373,7 +361,7 @@ class Item:
     """
     PyItemStack
 
-    注意：无法直接实例化该类，无法使用 [var: Item] 注解，请使用 [# type: Item] 注释代替
+    注意：无法直接实例化该类
     """
 
     def getName(self) -> str:
@@ -382,14 +370,75 @@ class Item:
         """
         ...
 
-    def getNBT(self) -> str:
+    def getNBT(self) -> NBT:
         """
-        获取物品NBT Json字符串
+        获取物品NBT
         """
         ...
 
 
-def getBDSVersion() -> int:
+class NBT:
+    """
+    PyNBT_Type
+    """
+
+    def __init__(self, type: str, value: Optional[Any] = None):
+        """
+        三种方式实例化
+
+        1. type:数据类型, value:数据
+        例: NBT('Int',3); NBT('Compound')
+
+        2. type:SNBT, value:SNBT字符串
+        例: NBT('SNBT', snbt)
+
+        3. type:Binary, value:bytes
+        例: NBT('Binary', bytes)
+
+        不存在对应NBT的Tag会报错
+        """
+        ...
+
+    def getType(self) -> str:
+        """
+        获取NBT类型
+        """
+        ...
+
+    def toBinary(self) -> bytes:
+        """
+        导出为Binary类型NBT
+        """
+        ...
+
+    def toJson(self, indentation: int = 4) -> bytes:
+        """
+        导出为Json格式NBT
+
+        :param indentation: 格式化后缩进空格数
+        """
+        ...
+
+    def toSNBT(self) -> str:
+        """
+        导出为SNBT
+        """
+        ...
+
+    def append(self, nbt: NBT):
+        """
+        向此NBT对象内添加内容
+        """
+        ...
+
+    def __getitem__(self, item):
+        ...
+
+    def __setitem__(self, key, value):
+        ...
+
+
+def getBDSVersion() -> str:
     """
     返回一个当前加载平台的版本号
 
@@ -412,6 +461,18 @@ def runCommand(command: str):
     从控制台发送命令
 
     :param command: 命令内容
+    """
+    ...
+
+
+def runCommandEx(command: str) -> Tuple[bool, str]:
+    """
+    从控制台发送命令
+
+    注：runcmdEx 与普通 runcmd 实现区别非常大，在于 Ex 版本拥有隐藏执行的机制，执行结果不会输出至控制台，因此如果有需要，要手动用 log 函数将结果输出
+
+    :param command: 命令内容
+    :return: [0]是否执行成功 [1]后台输出字符串
     """
     ...
 
@@ -455,13 +516,22 @@ def getPlayerByXuid(xuid: str) -> Entity:
     ...
 
 
-def getPlayerList() -> list[Entity]:
+def getPlayerList() -> List[Entity]:
     """
     获取在线玩家列表
 
     返回玩家Entity对象列表
 
     :return: 玩家列表
+    """
+    ...
+
+
+def getEntityList() -> List[Entity]:
+    """
+    获取实体列表
+
+    :return: 实体列表
     """
     ...
 
@@ -475,12 +545,12 @@ def setServerMotd(motd: str):
     ...
 
 
-def broadcastText(text: str, type: str):
+def broadcastText(text: str, type: int = 0):
     """
     广播文本
 
     :param text: 文本
-    :param type: 模式 RAW CHAT TRANSLATION POPUP JUKEBOX_POPUP TIP SYSTEM WHISPER ANNOUNCEMENT JSON_WHISPER JSON
+    :param type: 模式 Raw = 0 Chat = 1 JukeboxPopup = 4 SystemMessage = 6 Whisper = 7 Announcement = 8 TextObject = 9
     """
     ...
 
@@ -498,11 +568,9 @@ def broadcastTitle(text: str, type: str, fade_in_duration: int, remain_duration:
     ...
 
 
-def getBlock(x: int, y: int, z: int, dimension_id: int) -> Optional[dict]:
+def getBlock(x: int, y: int, z: int, dimension_id: int) -> Optional[BlockInstance]:
     """
     获取指定位置的方块信息
-
-    成功返回字典{'blockname':str,'blockid':int}
 
     :param x: x坐标
     :param y: y坐标
@@ -513,7 +581,7 @@ def getBlock(x: int, y: int, z: int, dimension_id: int) -> Optional[dict]:
     ...
 
 
-def setBlock(block: str, x: int, y: int, z: int, dimension_id: int):
+def setBlock(x: int, y: int, z: int, dimension_id: int, block: str, tile_data: int):
     """
     设置指定位置的方块
 
@@ -522,12 +590,13 @@ def setBlock(block: str, x: int, y: int, z: int, dimension_id: int):
     :param y: y坐标
     :param z: z坐标
     :param dimension_id: 维度id 1主世界 2下界 3末地
+    :param tile_data: 方块特殊值
     """
     ...
 
 
-def getStructure(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension_id: int, ignore_entities: bool,
-                 ignore_blocks: bool) -> Optional[str]:
+def getStructure(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension_id: int, ignore_entities: bool = True,
+                 ignore_blocks: bool = False) -> Optional[NBT]:
     """
     获取两个坐标之间的结构
 
@@ -542,7 +611,7 @@ def getStructure(x1: int, y1: int, z1: int, x2: int, y2: int, z2: int, dimension
     :param dimension_id: 维度id 0为主世界 1为下界 2为末地
     :param ignore_blocks: 是否忽略方块
     :param ignore_entities: 是否忽略实体
-    :return: 结构json字符串
+    :return: 结构NBT
     """
     ...
 
@@ -616,11 +685,11 @@ def explode(x: float, y: float, z: float, did: int, power: float, destroy: bool,
     ...
 
 
-def spawnItem(itemData: str, x: float, y: float, z: float, did: int):
+def spawnItem(item: Item, x: float, y: float, z: float, did: int):
     """
     根据物品NBT结构和坐标生成物品
 
-    :param itemData: NBT结构的物品
+    :param item: 物品NBT
     :param x: X坐标
     :param y: Y坐标
     :param z: Z坐标

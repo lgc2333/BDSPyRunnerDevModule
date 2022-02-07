@@ -4,15 +4,16 @@
 [![wakatime](https://wakatime.com/badge/user/b61b0f9a-f40b-4c82-bc51-0a75c67bfccf/project/bd7d0e0f-4bf7-48ec-9573-d02e74b8c88e.svg)](https://wakatime.com/badge/user/b61b0f9a-f40b-4c82-bc51-0a75c67bfccf/project/bd7d0e0f-4bf7-48ec-9573-d02e74b8c88e)
 [![CodeFactor](https://www.codefactor.io/repository/github/lgc2333/bdspyrunnerdevmodule/badge)](https://www.codefactor.io/repository/github/lgc2333/bdspyrunnerdevmodule)
 
-**本模块已适配pyr1.9.5**
+**本模块已适配pyr1.9.8**
 
 感谢 [我什么都布吉岛](https://github.com/The-Flash5) 的协助开发
 
-此模块适用于 [twoone3](https://github.com/twoone-3) 开发的BDSpyrunner
+此模块适用于 [twoone3](https://github.com/twoone-3) 开发的BDSpyRunner
 
 [帖子传送门](https://www.minebbs.com/threads/bdspyrunner-python.5949)
 [Github传送门](https://github.com/twoone-3/BDSpyrunner)
 
+模块介绍
 ----
 
 本模块提供pyr函数的自动补全、类型提示等功能
@@ -21,9 +22,8 @@
 
 写pyr插件再也不用去翻wiki了
 
+图骗欣赏
 ----
-
-### 图骗欣赏
 
 ![](./readme/module1.png)
 
@@ -45,9 +45,8 @@
 
 ![](./readme/plugin_example2.png)
 
+使用方法
 ----
-
-### 使用方法
 
 - vscode
 
@@ -60,6 +59,7 @@
 
 tip:插件编写完成后无需将pyi文件扔到服务端
 
+结语
 ----
 
 最后，祝大家喜欢这个模块
@@ -70,19 +70,20 @@ tip:插件编写完成后无需将pyi文件扔到服务端
 
 给个star不过分吧awa
 
+联系方式
 ---
-
-### 联系方式
 
 QQ: 3076823485
 
-E-mail: lgc2333@126.com
+E-mail: [lgc2333@126.com](mailto:lgc2333@126.com)
 
-Telegram: @lgc2333
+Telegram: [@lgc2333](https://t.me/lgc2333)
 
+BDSpyRunner Group: [QQ](https://jq.qq.com/?_wv=1027&k=pjvwGNly) |
+[Telegram](https://t.me/bdspyrunner)
+
+更新记录
 ----
-
-### 更新记录
 
 2021.4.4 适配pyr1.3
 
@@ -123,3 +124,5 @@ Telegram: @lgc2333
 2022.2.4-2 添加&修正部分函数
 
 2022.2.6 插件模板添加onServerStarted监听
+
+2022.2.7 适配适配更新更新

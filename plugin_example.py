@@ -605,7 +605,7 @@ def onEffectChanged(data):
 
 
 @listener('onServerStarted')
-def onServerStarted(data)
+def onServerStarted(data):
     """
     服务器启动
     """
