@@ -277,7 +277,7 @@ class Entity(object):
         """
         ...
 
-    def setBossBar(self, title: str, percent: float):
+    def setBossbar(self, title: str, percent: float):
         """
         设置玩家Boss条
 
@@ -286,7 +286,7 @@ class Entity(object):
         """
         ...
 
-    def removeBossBar(self, title: str):
+    def removeBossbar(self, title: str):
         """
         移除玩家Boss条
 
